@@ -1,0 +1,57 @@
+
+/*不要用网上现成的，不用的标签不要写，会影响性能，标签组选择器*/
+body,ul,p,h1,h2,h3,h4,h5,h6,dl,dd,input,select,form{
+    margin:0;
+    padding:0;
+}
+
+/*让h标签继承body类设置的字体大小*/
+h1,h2,h3,h4,h5,h6{
+    font-size:100%;
+}
+
+/*去掉默认. 标签选择器*/
+ul{
+    list-style: none;
+}
+
+/*不倾斜*/
+em{
+    font-style:normal;
+}
+
+/*去掉下划线*/
+a{
+    text-decoration:none;
+}
+
+/*去掉IE下，图片做链接时产生的边框*/
+img{
+    border:none;
+}
+
+/*清除margin-top塌陷和清除浮动*/
+.clearfix:before, .clearfix:after{
+    content:"";
+    /*一个HTML元素和它的子节点像table元素一样。使用基于表格的CSS布局，
+    使我们能够轻松定义一个单元格的边界、背景等样式，
+    而不会产生因为使用了table那样的制表标签所导致的语义化问题。*/
+    display:table;
+}
+
+.clearfix:after{
+    /*清除左右两边浮动*/
+    clear:both;
+}
+
+.clearfix{
+    zoom:1;
+}
+
+.fl{
+    float:left;
+}
+
+.fr{
+    float:right;
+}
