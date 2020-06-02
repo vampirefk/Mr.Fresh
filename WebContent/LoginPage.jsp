@@ -46,7 +46,7 @@ a{text-decoration:none;
                     </div>
 
                     <input type="submit" name="" value="µÇ Â¼" class="input_sub">
-	   				<input type="button"value="Ê× Ò³"onClick="window.location.href='Home.html'"class="input_sub">
+	   				<input type="button"value="Ê× Ò³"onClick="window.location.href='welcome.jsp'"class="input_sub">
                 </form>
             </div>
 

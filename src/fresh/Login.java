@@ -18,7 +18,7 @@ public class Login extends HttpServlet {
 		User user = userdao.login(nickname, password);
 		if(user!=null) {
 			request.getSession().setAttribute("user", user);
-			request.getRequestDispatcher("HomePage.jsp").forward(request,response);
+			request.getRequestDispatcher("welcome.jsp").forward(request,response);
 		}else {
 			request.getRequestDispatcher("ErrorLog.jsp").forward(request,response);
 		}

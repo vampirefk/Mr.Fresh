@@ -9,7 +9,6 @@ public class UserDao {
 		Connection conn=DataBaseConn.getConnection();
 		String sql="select * from user where nickname=? and password=?";
 		try {
-			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, nickname);
 			ps.setString(2, password);
@@ -79,17 +78,18 @@ public class UserDao {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				good = new Good();
+				good.setNo(rs.getInt("no"));
 				good.setGoodname(rs.getString("goodname"));
 				good.setNum(rs.getInt("num"));
 				good.setPrice(rs.getFloat("price"));
 				good.setPic(rs.getByte("pic"));
 				list.add(good);
 			}
-			for(Good goodGet : list){
-				System.out.print(goodGet.getGoodname()+'	');
-				System.out.print(goodGet.getNum()+"     ");
-				System.out.println(goodGet.getPrice());
-					}
+//			for(Good goodGet : list){
+//				System.out.print(goodGet.getGoodname()+'	');
+//				System.out.print(goodGet.getNum()+"     ");
+//				System.out.println(goodGet.getPrice());
+//					}
 			rs.close();
 			ps.close();
 		}catch(Exception e) {
@@ -111,17 +111,18 @@ public class UserDao {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				goods = new Good();
+				goods.setNo(rs.getInt("no"));
 				goods.setGoodname(rs.getString("goodname"));
 				goods.setNum(rs.getInt("num"));
 				goods.setPrice(rs.getFloat("price"));
 				goods.setPic(rs.getByte("pic"));
 				listAll.add(goods);
 			}
-			for(Good goodGet : listAll){
-				System.out.print(goodGet.getGoodname()+'	');
-				System.out.print(goodGet.getNum()+"     ");
-				System.out.println(goodGet.getPrice());
-					}
+//			for(Good goodGet : listAll){
+//				System.out.print(goodGet.getGoodname()+'	');
+//				System.out.print(goodGet.getNum()+"     ");
+//				System.out.println(goodGet.getPrice());
+//					}
 			rs.close();
 			ps.close();
 		}catch(Exception e) {
@@ -131,6 +132,32 @@ public class UserDao {
 			DataBaseConn.closeConnection(conn);
 		}
 		return listAll;
+	}
+	
+	public Good detailSearch(int no) {
+		Good good = null;
+		Connection conn=DataBaseConn.getConnection();
+		String sql="select * from good where no=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				good = new Good();
+				good.setGoodname(rs.getString("goodname"));
+				good.setNum(rs.getInt("num"));
+				good.setPrice(rs.getFloat("price"));
+				good.setPic(rs.getByte("pic"));
+			}
+			rs.close();
+			ps.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！detailSearch払移�　�！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+		}finally {
+			DataBaseConn.closeConnection(conn);
+		}
+		return good;
 	}
 	
 }

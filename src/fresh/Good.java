@@ -1,10 +1,18 @@
 package fresh;
 
 public class Good {
+	private int no;
 	private String goodname;
 	private int num;
 	private float price;
 	private byte pic;
+	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int n) {
+		no=n;
+	}
 	
 	public String getGoodname() {
 		return goodname;

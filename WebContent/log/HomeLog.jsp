@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=GB18030"
     pageEncoding="GB18030"%>
+<!DOCTYPE html>
 <%@ page import="fresh.User" %>
 <%@page import="fresh.Good"%>
 <%@page import="fresh.UserDao"%>
 <%@page import="java.util.*"%>
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="GB18030">
+    <meta charset="UTF-8">
     <title>威猛鲜生-首页</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
@@ -54,11 +54,17 @@
 		clearInterval(timeId);
 		timeId=setInterval(divInterval,4000);
 	}
-	function search(){
-		
-	}
+	function countDown(){
+		var time = document.getElementById("Time");
+				if(time.innerHTML == 0){
+					window.location.href="LoginPage.jsp";
+				}else{
+					time.innerHTML = time.innerHTML-1;
+				}
+			}
+			window.setInterval("countDown()",1000);
 </script>
-<!-- 
+<!-- 背景图片设置：
 <style>
     body{
         background-image: url(./images/背景.jpg);
@@ -74,14 +80,15 @@
 
 </head>
 <body>
-    <div class="header_con"><!-- -------------------------------------------头部------------------------------------------------- -->
+	<%
+		fresh.User user=(fresh.User)request.getSession().getAttribute("user");
+			if(user!=null){
+	%>
+    <div class="header_con">
         <div class="header">
             <div class="welcome fl">欢迎来到威猛鲜生</div>
             <div class="user_info fr">
-            	<%fresh.User user=(fresh.User)request.getSession().getAttribute("user");
-            	if(user!=null){
-            	%>
-            	 <div class="user_login_link fl">
+                <div class="user_login_link fl">
                 		 欢迎您 : <em><%=user.getName()%> </em>
                 		 <%if(user.getSex().equals("男")){%>
                 		 <em>先生</em>
@@ -92,19 +99,12 @@
                 </div>
                 <div class="user_shopping fl">
                     <span>|</span>
-                    <a href="#">购物车</a>
+                    <a href="#">我的订单</a>
                     <span>|</span>
                     <a href="Update.jsp">修改密码</a>
                     <span>|</span>
 					<a href="Exit" >退出登陆</a>
                 </div>
-                <%}else{ %>
-                <div class="user_login_link fl">
-                    <a href="LoginPage.jsp">登陆</a>
-                    <span>|</span>
-                    <a href="RegisterPage.jsp">注册</a>
-                </div>
-                <%} %>
             </div>
         </div>
     </div>
@@ -117,6 +117,10 @@
                 <input type="text" name="search" placeholder="搜索" class="input_text fl">
                 <input type="submit" name="" value="搜索" class="input_btn fr">
             </form>
+        </div>
+        <div class="chart fr">
+            <a href="#" class="fl">我的购物车</a>
+            <span class="fr">0</span>
         </div>
     </div>
     <div class="sub_menu_con">
@@ -136,7 +140,7 @@
     <div class="center_con" >
 
         <div class="slide_con fl"onmouseover="stop()" onmouseout="start()">
-                <div class="slide"><a href=""><img src="images/牛排.png" alt="幻灯片" ></a></div>
+                <div class="slide"><a href=""><img src="images/牛排.png" alt="幻灯片"></a></div>
                 <div class="slide"><a href=""><img src="images/生菜.png" alt="幻灯片"></a></div>
                 <div class="slide"><a href=""><img src="images/虾.png" alt="幻灯片"></a></div>
                 <div class="slide"><a href=""><img src="images/樱桃.png" alt="幻灯片"></a></div>
@@ -161,8 +165,6 @@
         </div>
     </div>
 
-
-<div>
     <div class="common_model">
         <div class="common_title">
 
@@ -177,32 +179,45 @@
 
             <a href="#" class="more fr">查看更多&gt;</a>
         </div>
-        <%
-        //Good good[]=new Good[4];
-        //for(int i = 0; i<4;i++){
-        	//good[i]=(ArrayList<Good>)goods;
-       // }
-        %>
+
         <div class="common_goods_list">
             <div class="goods_banner fl"><img src="images/banner.png" alt="商品banner">
             <!-- 后期精化：可以仿照京东生鲜的banner做 -->
             </div>
             <ul class="good_list fl">
-            <%
+<%
             UserDao userdao = new UserDao();
             ArrayList<Good>goods=new ArrayList<Good>();
             goods = (ArrayList<Good>)userdao.getAll();
+            //if(goods == null)
+            	//goods = new ArrayList<>();
+            	//for(Good good : goods){
+            	//for(int i=0;i<4;i++){
+           
             %>
-            <%for(int i=0;i<4;i++){ %>
                 <li>
-                    <h4><%=goods.get(i).getGoodname() %></h4>
-                    <a href="detail.jsp?no=<%=goods.get(i).getNo()%>"target="_blank">
-                    <img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
-                    <p><%=goods.get(i).getPrice() %></p>
+                    <h4><%=goods.get(0).getGoodname() %></h4>
+                    <a href="#"><img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
+                    <p><%=goods.get(0).getPrice() %></p>
                 </li>
-                <%} %>
+                <li>
+                    <h4><%=goods.get(1).getGoodname() %></h4>
+                    <a href="#"><img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
+                    <p><%=goods.get(1).getPrice() %></p>
+                </li>
+                <li>
+                    <h4><%=goods.get(2).getGoodname() %></h4>
+                    <a href="#"><img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
+                    <p><%=goods.get(2).getPrice() %></p>
+                </li>
+                <li>
+                    <h4><%=goods.get(3).getGoodname() %></h4>
+                    <a href="#"><img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
+                    <p><%=goods.get(3).getPrice() %></p>
+                </li>
+                
+                <%//} %>
             </ul>
-            
         </div>
     </div>
     <div class="common_model">
@@ -591,9 +606,6 @@
         </div>
     </div>
     
-    
-</div>    
-    
  <div class="footer login_footer">
         <div class="links">
             <a href="">关于我们</a>
@@ -609,6 +621,11 @@
     电话：021-88888888 沪ICP备88888888号</p>
     </div>
 
-
+<%}else{%>
+			<tr>
+			对不起，登陆失败！<br>页面将在  <span id="Time">3 </span> 秒后自动跳转至登陆界面，请稍候……
+			</tr>
+			<%}
+			%>
 </body>
 </html>

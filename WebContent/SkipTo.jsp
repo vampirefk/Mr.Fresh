@@ -19,7 +19,7 @@
 </head>
 <body>
 <tr>
-恭喜大人注册成功！<br>页面将在  <span id="Time">3 </span> 秒后自动跳转至登陆界面，请稍候……
+恭喜您！注册成功！<br>页面将在  <span id="Time">2 </span> 秒后自动跳转至登陆界面，请稍候……
 </tr>
 </body>
 </html>
