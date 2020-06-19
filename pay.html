@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="referrer" content="no-referrer">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/pay.css" rel="stylesheet"/>
+    <title>商品付款</title>
+	<link rel="icon" href="#">
+
+</head>
+<body>
+<div class="sitenav">
+<div class="navcont">
+<div class="lsite">
+<div><a href="#">首页</a></div>
+<div>欢迎来到威猛鲜生</div>
+<div><a href="#">请登录</a></div>
+<div><a href="#">免费注册</a></div>
+</div>
+<div class="rsite">
+<div><a>购物车</a></div>
+<div><a>收藏夹</a></div>
+<div><a>商家支持</a></div>
+<div><a>网站导航</a></div>
+</div>
+</div>
+</div>
+<div class="header">
+<div class="headerCon">
+<img src="image/cartlogo.jpg" style="position:relative;width:200px;top:10px;">
+<div class="Searchbox">
+<form class="form-search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+<div class="searchWrap">
+  <input type="text" placeholder="这是搜索框" class="input-medium search-query" autocomplete="off" >
+  <button class="W_Search">搜索</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+<div class="Jcart">
+<div class="filterBar">
+<ul>
+<li><a>确认订单信息</a></li></ul>
+</div>
+
+<div class="cartMain">
+<div class="cartTable">
+<div class="th th-chk"><div class="SelectAll" ><div class="cart-checkbox" style="padding-left: 11px;" ></div></div></div>
+<div class="th th-item"><div class="td-inner">商品信息</div></div>
+<div class="th th-info"><div class="td-inner">&nbsp;</div></div>
+<div class="th th-price"><div class="td-inner">单价</div></div>
+<div class="th th-amount"><div class="td-inner">数量</div></div>
+<div class="th th-sum"><div class="td-inner">小计</div></div>
+<div class="th th-op"><div class="td-inner" style="text-align:center">备注</div></div>
+</div>
+<div class="order-list">
+<div class="order-content">
+<ul>
+<li class="td th-chk"><div class="SelectAll"><div class="cart-checkbox"></div></div></li>
+<li class="td th-item">
+<div class="td-inner" style="padding:0;">
+<a class="img-pic"><img src="image/good1.jpg"></a>
+<div class="item-info">
+<div class="basic-info"><a>【狂欢价】电影票火车票收藏册票据收纳册纪念册旅行收集册插页式</a></div>
+<div class="other-info"></div>
+</div>
+</div>
+</li>
+<li class="td th-info"><div class="td-inner infotxt">颜色分类：为爱记录（车票电影票160张+门票飞机票60张+5寸照片160张）</div></li>
+<li class="td th-price"><div class="td-inner priceline" name="25.00">¥25.00</div></li>
+<li class="td th-amount" style="overflow:visible;">
+<div class="td-inner item-amount">
+<div id="salenum1">1</div></div>
+</li>
+<li class="td th-sum"><div class="td-inner pricetotal" name="25.00">¥25.00</div></li>
+<li class="td th-op"><div class="td-inner"><a style="color: #3c3c3c;text-decoration: none;"><span><textarea placeholder="选填，请先和商家协商一致"></textarea></span></a></div></li>
+<div style="clear:both;"></div>
+</ul>
+</div>
+</div>
+<div class="order-list">
+<div class="order-content">
+<ul>
+<li class="td th-chk"><div class="SelectAll"><div class="cart-checkbox"></div></div></li>
+<li class="td th-item">
+<div class="td-inner" style="padding:0;">
+<a class="img-pic"><img src="image/good1.jpg"></a>
+<div class="item-info">
+<div class="basic-info"><a>【狂欢价】电影票火车票收藏册票据收纳册纪念册旅行收集册插页式</a></div>
+<div class="other-info"></div>
+</div>
+</div>
+</li>
+<li class="td th-info"><div class="td-inner infotxt">颜色分类：为爱记录（车票电影票160张+门票飞机票60张+5寸照片160张）</div></li>
+<li class="td th-price"><div class="td-inner priceline" name="25.00">¥25.00</div></li>
+<li class="td th-amount" style="overflow:visible;">
+<div class="td-inner item-amount">
+<div id="salenum2">1</div>
+</div>
+</li>
+<li class="td th-sum"><div class="td-inner pricetotal" name="25.00">¥25.00</div></li>
+<li class="td th-op"><div class="td-inner"><a style="color: #3c3c3c;text-decoration: none;"><span><textarea placeholder="选填，请先和商家协商一致"></textarea></span></a></div></li>
+<div style="clear:both;"></div>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div class="BarHolder">
+<div class="selectAll" style="padding-left: 20px;" ></div>
+<div class="deleteAll">
+            <!--省份选择-->
+            <select id="prov" onchange="showCity(this)">
+                <option>=请选择省份=</option>
+ 
+            </select>
+ 
+            <!--城市选择-->
+            <select id="city" onchange="showCountry(this)">
+                <option>=请选择城市=</option>
+            </select>
+ 
+            <!--县区选择-->
+            <select id="country" onchange="selecCountry(this)">
+                <option>=请选择县区=</option>
+            </select>
+			<input type="text" placeholder="详细地址" style="width: 120px;height: 30px;margin-left: 15px;margin-top: 10px;padding-left: 5px;">
+</div>
+<div class="BarRight">
+<div class="priceSum">合计（包含运费）： <em id="totalprice2">0.00</em></div>
+<div class="btn-area"><a class="smallSubmit active">付款</a></div>
+</div>
+</div>
+</div>
+<script src="city.js"></script>
+<script src="method.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
