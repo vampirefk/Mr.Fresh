@@ -17,6 +17,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/search.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
     <title>商品详情</title>
 	<link rel="icon" href="#">
 
@@ -33,36 +35,51 @@ function Sort(evt,mode){
 
 </head>
 <body>
-
-<div class="sitenav">
-<div class="navcont">
-<div class="lsite">
-<div><a href="#">首页</a></div>
-<div>欢迎来到威猛鲜生</div>
-<div><a href="#">请登录</a></div>
-<div><a href="#">免费注册</a></div>
-</div>
-<div class="rsite">
-<div><a>购物车</a></div>
-<div><a>收藏夹</a></div>
-<div><a>商家支持</a></div>
-<div><a>网站导航</a></div>
-</div>
-</div>
-</div>
-<div class="header">
-<div class="headerCon">
-<img src="image/weblogo.jpg" style="position:relative;width:200px;top:10px;left:-12px;">
-<div class="Searchbox">
-<form class="form-search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-<div class="searchWrap">
-  <input type="text" placeholder="这是搜索框" class="input-medium search-query" autocomplete="off" >
-  <button class="W_Search">搜索</button>
-</div>
-</form>
-</div>
-</div>
-</div>
+    <div class="header_con"><!-- -------------------------------------------头部------------------------------------------------- -->
+        <div class="header">
+            <div class="welcome fl">欢迎来到威猛鲜生</div>
+            <div class="user_info fr">
+            	<%fresh.User user=(fresh.User)request.getSession().getAttribute("user");
+            	if(user!=null){
+            	%>
+            	 <div class="user_login_link fl">
+                		 欢迎您 : <em><%=user.getName()%> </em>
+                		 <%if(user.getSex().equals("男")){%>
+                		 <em>先生</em>
+                		 <%}else if(user.getSex().equals("女")){%>
+                		 <em>女士</em>
+                		 <%} %>
+                		 
+                </div>
+                <div class="user_shopping fl">
+                    <span>|</span>
+                    <a href="Cart.jsp">购物车</a>
+                    <span>|</span>
+                    <a href="Update.jsp">修改密码</a>
+                    <span>|</span>
+					<a href="Exit" >退出登陆</a>
+                </div>
+                <%}else{ %>
+                <div class="user_login_link fl">
+                    <a href="LoginPage.jsp">登陆</a>
+                    <span>|</span>
+                    <a href="RegisterPage.jsp">注册</a>
+                </div>
+                <%} %>
+            </div>
+        </div>
+    </div>
+    <div class="logo_bar">
+        <div class="logo fl">
+            <a href="#"><img src="images/logo1.png"></a>
+        </div>
+        <div class="search fl">
+            <form action="search" method="post">
+                <input type="text" name="search" placeholder="搜索" class="input_text fl">
+                <input type="submit" name="" value="搜索" class="input_btn fr">
+            </form>
+        </div>
+    </div>
 <div class="main">
 <div class="filter">
 <a class="fsort" onclick="Sort(event,1)">

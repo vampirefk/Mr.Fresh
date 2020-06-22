@@ -1,6 +1,11 @@
+<%@ page import="fresh.User" %>
 <%@page import="fresh.Good"%>
-<%@page import="fresh.User"%>
 <%@page import="fresh.UserDao"%>
+<%@page import="java.util.*"%>
+<%@page import="fresh.Cart"%>
+<%@page import="java.sql.*"%>
+<%@page import="fresh.DataBaseConn"%>
+
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=GB18030" pageEncoding="GB18030"%>
 <!doctype html>
 <html lang="en">
@@ -18,6 +23,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/detail.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
     <title>商品详情</title>
 	<link rel="icon" href="#">
 
@@ -41,39 +48,81 @@ function decNum(){
 	if (i < 1) i=1;
 	$("#salenum").val(i);
 }
+
+function addCart(evt){
+	var formData = new FormData();
+	formData.append('username', $("#username").attr("name"))
+	formData.append("goodno", $("#goodno").attr("name"))
+	formData.append("salenum", $("#salenum").val())
+	formData.append("isLogin", $("#isLogin").attr("name"))
+	var username = document.getElementById("username").value
+	$.ajax({
+			url:"addToCart",
+			type:"POST",
+			data:username,
+			dataType: "json",
+			processData:false,
+			contentType:false,
+			success: function (data) {
+				alert("success!")
+			}
+	})
+}
+
+function alertLog(){
+	alert('请登录！')
+	window.location.href="LoginPage.jsp";
+}
+
 </script>
 
 </head>
 <body>
-<div class="sitenav">
-<div class="navcont">
-<div class="lsite">
-<div><a href="#">首页</a></div>
-<div>欢迎来到威猛鲜生</div>
-<div><a href="#">请登录</a></div>
-<div><a href="#">免费注册</a></div>
-</div>
-<div class="rsite">
-<div><a>购物车</a></div>
-<div><a>收藏夹</a></div>
-<div><a>商家支持</a></div>
-<div><a>网站导航</a></div>
-</div>
-</div>
-</div>
-<div class="header">
-<div class="headerCon">
-<img src="detail/logo.jpg" style="position:relative;width:500px;top:10px;left:-22px;">
-<div class="Searchbox">
-<form class="form-search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-<div class="searchWrap">
-  <input type="text" placeholder="这是搜索框" class="input-medium search-query" autocomplete="off" >
-  <button class="W_Search">搜索</button>
-</div>
-</form>
-</div>
-</div>
-</div>
+   <div class="header_con"><!-- -------------------------------------------头部------------------------------------------------- -->
+        <div class="header">
+            <div class="welcome fl">欢迎来到威猛鲜生</div>
+            <div class="user_info fr">
+            	<%fresh.User user=(fresh.User)request.getSession().getAttribute("user");
+            	if(user!=null){
+            	%>
+            	 <div class="user_login_link fl">
+                		 欢迎您 : <em><%=user.getName()%> </em>
+                		 <%if(user.getSex().equals("男")){%>
+                		 <em>先生</em>
+                		 <%}else if(user.getSex().equals("女")){%>
+                		 <em>女士</em>
+                		 <%} %>
+                		 
+                </div>
+                <div class="user_shopping fl">
+                    <span>|</span>
+                    <a href="Cart.jsp">购物车</a>
+                    <span>|</span>
+                    <a href="Update.jsp">修改密码</a>
+                    <span>|</span>
+					<a href="Exit" >退出登陆</a>
+                </div>
+                <%}else{ %>
+                <div class="user_login_link fl">
+                    <a href="LoginPage.jsp">登陆</a>
+                    <span>|</span>
+                    <a href="RegisterPage.jsp">注册</a>
+                </div>
+                <%} %>
+            </div>
+        </div>
+    </div>
+    <div class="logo_bar">
+        <div class="logo fl">
+            <a href="#"><img src="images/logo1.png"></a>
+        </div>
+        <div class="search fl">
+            <form action="search" method="post">
+                <input type="text" name="search" placeholder="搜索" class="input_text fl">
+                <input type="submit" name="" value="搜索" class="input_btn fr">
+            </form>
+        </div>
+    </div>
 <div class="content">
 <div class="tb-shop">
 <img src="detail/ex.jpg">
@@ -113,25 +162,31 @@ good = userdao.detailSearch(no);
 <div class="tb-meta">
 <div class="panel-row">
 <div class="panel-left">运费</div>
-<div class="panel-right">江苏南京至 苏州 沧浪区 快递: 0.00</div>
+<div class="panel-right">上海总部 至 xx区  快递: 0.00</div>
 </div>
 </div>
 <ul class="sale-info">
 <li><div><span class="tm-label">月销量</span><span class="tm-count">4w+</span></div></li>
 <li><div><span class="tm-label">累计评价</span><span class="tm-count">15112</span></div></li>
 </ul>
+
+<%if(user!=null){%>
+<form action="addToCart" method="post"  target="form_iframe" >
 <div class="tb-amount">
 <div class="panel-row">
 <div class="panel-left">数量</div>
 <span class="tb-numchg">
-<input type="text" maxlength="8" value="1" id="salenum" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+
+<input type="text" maxlength="8" value="1" id="salenum" name="salenum"
+onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" 
+onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
 <span class="mui-btn">
 <span class="mui-inc" onclick="incNum()">△</span>
 <span class="mui-dec" onclick="decNum()">▽</span>
 </span>
 <span class="mui-unit">件</span>
 </span>
-<em>库存<%=good.getNum() %>件</em>
+<em>库存<%=good.getNum()%>件</em>
 </div>
 </div>
 
@@ -140,10 +195,86 @@ good = userdao.detailSearch(no);
 <a href="#">立即购买</a>
 </div>
 <div class="tb-btn-cart">
-<a href="#">加入购物车</a>
+    <input type="hidden" name="userno" value="<%=user.getNo() %>"/>
+    <input type="hidden" name="goodno" value="<%=good.getNo() %>"/>
+    <input type="submit" name="" value="加入购物车" style="
+    background-color: #ff0036;
+    border: 1px solid #ff0036;
+    color: #fff;
+	margin-right: 0;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 178px;
+	font-family: 'Microsoft Yahei';
+	height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+	text-decoration:none;">
+    <iframe id="form_iframe" name="form_iframe" style="display:none;"></iframe>
+</div>
+</div>
+</form>
+<%}else{ %>
+<form action="addToCart" method="post"  target="form_iframe" >
+<div class="tb-amount">
+<div class="panel-row">
+<div class="panel-left">数量</div>
+<span class="tb-numchg">
+
+<input type="text" maxlength="8" value="1" id="salenum" name="salenum"
+onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" 
+onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+<span class="mui-btn">
+<span class="mui-inc" onclick="incNum()">△</span>
+<span class="mui-dec" onclick="decNum()">▽</span>
+</span>
+<span class="mui-unit">件</span>
+</span>
+<em>库存<%=good.getNum()%>件</em>
 </div>
 </div>
 
+<div class="tb-action">
+<div class="tb-btn-buy" >
+<button onclick="alertLog()" style="
+	margin-right: 0;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 178px;
+    background-color: #ffeded;
+    border: 1px solid #FF0036;
+    color: #FF0036;
+    font-family: 'Microsoft Yahei';
+	height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+	text-decoration:none;">立即购买</button>
+</div>
+<div class="tb-btn-cart">
+<button onclick="alertLog()" style="
+    background-color: #ff0036;
+    border: 1px solid #ff0036;
+    color: #fff;
+	margin-right: 0;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 178px;
+	font-family: 'Microsoft Yahei';
+	height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 16px;
+	text-decoration:none;">加入购物车</button>
+
+</div>
+</div>
+</form>
+<%} %>
 <div class="tm-ser">
 <div class="panel-left">服务承诺</div>
 <ul class="ser-detail">

@@ -18,15 +18,15 @@ public class Register extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("GB18030");
 		response.setCharacterEncoding("GB18030");
-		String nickname = request.getParameter("nickname");
+		String no = request.getParameter("no");
 		String name = request.getParameter("name");
 		String pass = request.getParameter("password");
 		String sex = request.getParameter("sex");
 		UserDao userDao = new UserDao();
-		if(nickname != null && !nickname.isEmpty()) {
-			if(userDao.userIsExist(nickname)) {
+		if(no != null && !no.isEmpty()) {
+			if(userDao.userIsExist(no)) {
 				User user= new User();
-				user.setNickname(nickname);
+				user.setNo(no);
 				user.setName(name);
 				user.setSex(sex);
 				user.setPassword(pass);

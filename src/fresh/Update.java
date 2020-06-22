@@ -16,7 +16,7 @@ public class Update extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		fresh.User user=(fresh.User)request.getSession().getAttribute("user");
 		String pass = request.getParameter("password");
-		String nickname = user.getNickname();
+		String nickname = user.getNo();
 		Connection conn=DataBaseConn.getConnection();
 		String sql="Update user set Password=? where nickname=?";
 		try {

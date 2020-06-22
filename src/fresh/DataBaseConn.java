@@ -11,7 +11,7 @@ public class DataBaseConn {
 			System.out.println("数据库连接成功");
 		}catch(Exception e){
 			e.printStackTrace();
-		    System.out.println("连接失败！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
+		    System.out.println("！！！！！！！！！！！！！！！！！连接失败！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
 		    }return conn;
 		}																				//连接数据库
 	

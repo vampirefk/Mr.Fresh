@@ -233,7 +233,7 @@
 	<form  action="Register"method="post">
 	
 		<div class="form_group">
-        	<input type="text" name="nickname" class="input_txt"
+        	<input type="text" name="no" class="input_txt"
         	placeholder="请输入用户名">
             	<span class="error">文字提示</span>
         </div>

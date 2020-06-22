@@ -75,7 +75,7 @@ body{
 
 .search .input_text{
     width:470px;
-    height:37px;
+    height:35px;
     border:0px;
     margin-left:10px;
     outline:none;
@@ -131,7 +131,7 @@ body{
     width:200px;
     height:40px;
     background-color: #37de40;
-    font:20px/40px 'Microsoft YaHei UI';
+    font:16px/40px 'Microsoft YaHei UI';
     text-align:center;
     color:#fff;
 }
@@ -142,15 +142,15 @@ body{
 
 .sub_menu li{
     float:left;
-    width:150px;
+    width:163.3px;
     height:40px;
     background-color:#37ab40;
 }
 
 .sub_menu li a{
-    font:18px/40px 'Microsoft YaHei UI';
+    font:16px/40px 'Microsoft YaHei UI';
     display:block;
-    width:198px;
+    width:100%;
     height:44px;
     text-align:center;
     color:#fff;
@@ -162,8 +162,8 @@ body{
 }
 
 .center_con{
-    width:1000px;
-    height:440px;
+    width:1180px;
+    height:460px;
     margin:0 auto;
 }
 
@@ -218,15 +218,20 @@ body{
 /*幻灯片样式*/
 
 .slide_con{
-    width:740px;
-    height:430px;
+    width:800px;
+    height:460px;
     position:relative;
     overflow:hidden;
 }
 
+.slide_con img{
+	height:460px;
+	width:800px;
+}
+
 .slide{
-    width:740px;
-    height:430px;
+    width:800px;
+    height:460px;
     position:absolute;
 }
 
@@ -282,13 +287,15 @@ body{
 }
 .adv a{
     float:left;
-    width:240px;
-    height:215px;
+    width:379px;
+    height:230px;
 }
 
 /*解决图片下方3像素白边的情况*/
 .adv a img{
     display:block;
+	width: 100%;
+    height: 100%;
 }
 
 .common_model{

@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <style>
 h1{color:#fffef8;}
-body{color: #fffef8;}
+body{color: #42c02e;}
 a{text-decoration:none;
 }
 </style>
@@ -29,7 +29,7 @@ a{text-decoration:none;
                 
                 <form  action="Login"method="post">
                     <div class="form_group">
-                        <input type="text" name="nickname" class="input_txt"
+                        <input type="text" name="no" class="input_txt"
                         placeholder="请输入用户名">
                         <span class="error">文字提示</span>
                     </div>

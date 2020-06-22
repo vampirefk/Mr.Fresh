@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname=request.getParameter("nickname");
+		String no=request.getParameter("no");
 		String password=request.getParameter("password");
 		UserDao userdao = new UserDao();
-		User user = userdao.login(nickname, password);
+		User user = userdao.login(no, password);
+		System.out.println(no+password);
 		if(user!=null) {
 			request.getSession().setAttribute("user", user);
 			request.getRequestDispatcher("welcome.jsp").forward(request,response);

@@ -3,7 +3,7 @@ package fresh;
 import java.sql.*;
 
 public class User {
-	private String nickname;
+	private String no;
 	private String name;
 	private String sex;
 	private String password;
@@ -15,11 +15,11 @@ public class User {
 		name=n;
 	}
 	
-	public String getNickname() {
-		return nickname;
+	public String getNo() {
+		return no;
 	}
-	public void setNickname(String n) {
-		nickname=n;
+	public void setNo(String n) {
+		no=n;
 	}
 	
 	public String getSex() {

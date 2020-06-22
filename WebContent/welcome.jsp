@@ -11,11 +11,11 @@
     <title>威猛鲜生-首页</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
-    <script type="text/javascript">
+       <script type="text/javascript">
 	onload=function(){
 		var arr = document.getElementsByClassName("slide");
 		for(var i=0;i<arr.length;i++){
-			arr[i].style.left = i*740+"px";
+			arr[i].style.left = i*800+"px";
 		}
 	}
 	//页面失去焦点停止
@@ -32,7 +32,7 @@
 		for(var i=0;i<arr.length;i++){
 			var left = parseFloat(arr[i].style.left);
 			left-=2;
-			var width = 740;//图片的宽度
+			var width = 800;//图片的宽度
 			if(left<=-width){
 				left=(arr.length-1)*width;//当图片完全走出显示框，拼接到末尾
 				clearInterval(moveId);
@@ -92,7 +92,7 @@
                 </div>
                 <div class="user_shopping fl">
                     <span>|</span>
-                    <a href="#">购物车</a>
+                    <a href="Cart.jsp">购物车</a>
                     <span>|</span>
                     <a href="Update.jsp">修改密码</a>
                     <span>|</span>
@@ -192,10 +192,9 @@
             UserDao userdao = new UserDao();
             ArrayList<Good>goods=new ArrayList<Good>();
             goods = (ArrayList<Good>)userdao.getAll();
-            %>
-            <%for(int i=0;i<4;i++){ %>
+            for(int i=0;i<4;i++){ %>
                 <li>
-                    <h4><%=goods.get(i).getGoodname() %></h4>
+                    <h4><%=goods.get(i).getGoodname()%></h4>
                     <a href="detail.jsp?no=<%=goods.get(i).getNo()%>"target="_blank">
                     <img src="images/生菜.png"style="width:180px;height:180px" alt="商品图片"></a>
                     <p><%=goods.get(i).getPrice() %></p>
